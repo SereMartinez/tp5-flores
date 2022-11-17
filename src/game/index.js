@@ -7,7 +7,16 @@ const API_URL = "https://62bb6e36573ca8f83298fbef.mockapi.io/metcampweb22/v1/que
 
 function Game () {
     const [ loading, setLoading] = useState (true); 
-    const [ questions, setQuestions] = useState ([]); 
+    const [ questions, setQuestions] = useState ([]);
+    const [selectedAnswers,setSelectedAnswers]= useState ([])
+    const [result,setResult] = useState (0)
+    const [mostrarResultado, setMostrarResultado]= useState (false)
+
+    function calcularResultado () {
+        const respuestaCorrectas=selectedAnswers.filter((respuesta)=>respuesta.valorOpcion===true)
+        setResult(respuestaCorrectas.length )
+        setMostrarResultado(true)
+    }
 
     useEffect(() => {
         fetch(API_URL)
@@ -41,13 +50,26 @@ return(
                                preguntaActual={pregunta}
                                selectedAnswers={selectedAnswers}
                                setselectedAnswers={setselectedAnswers}
+                               mostrarResultado={mostrarResultado}
                                />
                             })
                        }
                     </form>
+                   
                 )
             }
-                <h1> Estás en el juego </h1>   
+            <div className="level-right">
+            {
+                mostrarResultado &&
+                <p>{result}</p>
+            
+            }
+        
+                <Button disabled={
+                    selectedAnswers?.length !== questions?.length
+                    } onClick={()=>calcularResultado()} text="Validar"></Button>
+            </div>   
+            <h1> Estás en el juego </h1>   
          </section>
     </div>
 )

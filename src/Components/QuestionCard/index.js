@@ -1,6 +1,6 @@
 import "./index.css";
 
-function QuestionCard ({preguntaActual, selectedAnswers, setselectedAnswers }) { 
+function QuestionCard ({preguntaActual, selectedAnswers, setselectedAnswers, mostrarResultado }) { 
     function seleccionarRespuesta (id, valorOpcion){
         const otrasRespuestas=selectedAnswers.filter((respuesta)=> respuesta.id !== identificador)
         setSelectedAnswers([...otrasRespuestas,
@@ -21,7 +21,14 @@ function QuestionCard ({preguntaActual, selectedAnswers, setselectedAnswers }) {
                 preguntaActual.answers.map((option) => (
                     <div key={option.id} onChange={()=> seleccionarRespuesta(preguntaActual.id,option.is_correct)}>
                         <input type="radio" id={ `${option.id} `} name={option.id} value={option.answer}></input>
-                        <label htmlFor={ `${option.id} `}>{option.answer}</label>
+                        <label htmlFor={ `${preguntaActual.id} `}
+                        className={
+                            mostrarResultado ?
+                            options.is_correct ? "has-text-primary" : "has-text-danger"
+                            : ""
+                        }>{option.answer}</label>
+
+                    
                     </div>
                 ))  
             }
