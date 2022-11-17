@@ -1,8 +1,14 @@
 import "./index.css";
 
 function QuestionCard ({preguntaActual, selectedAnswers, setselectedAnswers }) { 
-    function seleccionarRespuesta (valorOpcional){
-        console.log (valorOpcion)
+    function seleccionarRespuesta (id, valorOpcion){
+        const otrasRespuestas=selectedAnswers.filter((respuesta)=> respuesta.id !== identificador)
+        setSelectedAnswers([...otrasRespuestas,
+             {
+                id:identificador,
+                valorOpcion
+            }
+        ])
     }
     return (
         < div className="box"> 
